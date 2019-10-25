@@ -2,10 +2,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.lang.reflect.Array;
 
-public class TestInspector {
+public class Test {
 
     @Test
-    public void testInspectorObject(){
+    public void testInspectorObject() {
         assertNotNull(new Inspector());
 
         Inspector inspector = new Inspector();
