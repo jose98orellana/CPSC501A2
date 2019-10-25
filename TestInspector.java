@@ -1,7 +1,6 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.lang.reflect.Array;
-import java.util.HashSet;
 
 public class TestInspector {
 
@@ -55,7 +54,7 @@ public class TestInspector {
             inspector.inspect(obj5, false);
             assertTrue(inspector.alreadyInspected(obj5));
 
-            String testString = "Da na na na na, Inspector Gadget!";
+            String testString = "Hello World";
             assertFalse(inspector.alreadyInspected(testString));
             inspector.inspect(testString, true);
             assertTrue(inspector.alreadyInspected(testString));
@@ -63,75 +62,5 @@ public class TestInspector {
         catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void testGetObjectArray(){
-        Inspector inspector = new Inspector();
-
-        Object arrayObj1 = new ClassB[10];
-        assertNotNull(inspector.getObjectArray(arrayObj1));
-
-        Object arrayOutput1[] = inspector.getObjectArray(arrayObj1);
-        assertEquals(10, Array.getLength(arrayOutput1));
-        for(Object o: arrayOutput1){
-            assertNull(o);
-        }
-
-        Object arrayObj2 = new char[]{'j', 'u', 'n', 'i', 't', ' ','p', 'l', 's'};
-        assertNotNull(inspector.getObjectArray(arrayObj2));
-
-        Object arrayOutput2[] = inspector.getObjectArray(arrayObj2);
-        assertEquals(9, Array.getLength(arrayOutput2));
-        for(Object o: arrayOutput2){
-            assertNotNull(o);
-            assertTrue(o instanceof Character);
-        }
-
-        Object arrayObj3 = new ClassB[5][5];
-        assertNotNull(inspector.getObjectArray(arrayObj3));
-
-        Object arrayOutput3[] = inspector.getObjectArray(arrayObj3);
-        assertEquals(5, Array.getLength(arrayOutput3));
-        for(Object o : arrayOutput3){
-            assertNotNull(o);
-            assertEquals(5, Array.getLength(o));
-            assertTrue(o.getClass().isArray());
-            Object arrayOutput4[] = inspector.getObjectArray(o);
-            for(Object nestedO: arrayOutput4){
-                assertNull(nestedO);
-            }
-        }
-
-    }
-
-    @Test
-    public void testGetElementValue(){
-        Inspector inspector =  new Inspector();
-
-        Object nullElement = null;
-        String elementValue = inspector.getElementValue(nullElement);
-        assertTrue(elementValue.length() < 1);
-
-        Character charElement= new Character('a');
-        elementValue = inspector.getElementValue(charElement);
-        assertTrue(elementValue.contains("a"));
-
-        Integer intElement =  new Integer(420);
-        elementValue = inspector.getElementValue(intElement);
-        assertTrue(elementValue.contains("420"));
-
-        Double doubleElement =  new Double(3.14159);
-        elementValue = inspector.getElementValue(doubleElement);
-        assertTrue(elementValue.contains("3.14159"));
-
-        Boolean boolElement = new Boolean(true);
-        elementValue = inspector.getElementValue(boolElement);
-        assertTrue(elementValue.contains("true"));
-
-        ClassB[][] nestedArrayElement = new ClassB[12][12];
-        String elementValue2 = inspector.getElementValue(nestedArrayElement);
-        Class nestedArrayClass = nestedArrayElement.getClass();
-        assertTrue(elementValue2.contains(nestedArrayClass.getName()));
     }
 }
