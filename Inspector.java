@@ -149,10 +149,6 @@ public class Inspector {
 		}
 	}
 
-	private void add(Field f, Object obj) throws IllegalArgumentException, IllegalAccessException{
-
-	}
-
 	private void inspectFieldClasses(Class<?> c, Object obj, boolean recursive, Vector<Field> objectsToInspect) {
 		if(objectsToInspect.size() > 0 )
 		    System.out.println("\n\n================================================"
