@@ -19,7 +19,7 @@ public class Inspector {
         // Class c = obj.getClass();
         // inspectClass(c, obj, recursive, 0);
         if (obj != null) {
-			Class<?> c = obj.getClass();
+			Class<?> objClass = obj.getClass();
 			Vector<Field> objectsToInspect = new Vector<Field>();
 			
 			System.out.println("inside inspector: " + obj.getClass().getTypeName() + " (recursive = "+ recursive +")");
@@ -30,10 +30,10 @@ public class Inspector {
 				}
 			} else {
 				//inspect the current class
-				inspectClass(c, obj, recursive, objectsToInspect);
+				inspectClass(objClass, obj, recursive, objectsToInspect);
 				
 				if(recursive) {
-					inspectFieldClasses(c, obj, recursive, objectsToInspect);
+					inspectFieldClasses(objClass, obj, recursive, objectsToInspect);
 				}
 			}
 		} else {
@@ -147,6 +147,10 @@ public class Inspector {
 		if (f.getType().isArray()) {
 			System.out.format("--------------------------------------- Array%n" + "Length: %s%n" + "Component Type: %s%n", Array.getLength(f.get(obj)), f.getType().getComponentType().getName());
 		}
+	}
+
+	private void add(Field f, Object obj) throws IllegalArgumentException, IllegalAccessException{
+
 	}
 
 	private void inspectFieldClasses(Class<?> c, Object obj, boolean recursive, Vector<Field> objectsToInspect) {
